@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="answer_hint_text">Antwoord?</string>
+    <string name="ok_btn_text">Okidoki</string>
+    <string name="hint_btn_text">Tip</string>
+</resources>

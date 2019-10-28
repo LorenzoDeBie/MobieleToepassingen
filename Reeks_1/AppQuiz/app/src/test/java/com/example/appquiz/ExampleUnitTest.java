@@ -1,4 +1,4 @@
-package com.example.lorenzodebie.reeks_1;
+package com.example.appquiz;
 
 import org.junit.Test;
 

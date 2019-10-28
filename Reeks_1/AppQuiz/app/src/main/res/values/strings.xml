@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">Reeks_1</string>
+    <string name="app_name">AppQuiz</string>
+    <string name="btnOKText">OK</string>
+    <string name="btnHintText">Hint</string>
+    <string name="answerTextSample">Answer</string>
+    <string name="answerOk">True!</string>
+    <string name="answerNotOk">False!</string>
+    <string name="btnHint1Text">Hint 1</string>
+    <string name="btnHint2Text">Hint 2</string>
 </resources>

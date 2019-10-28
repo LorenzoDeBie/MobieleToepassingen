@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="quizMaster" type="com.example.appquiz.model.QuizMaster" />
+        <variable name="mainActivity" type="com.example.appquiz.MainActivity" />
+    </data>
+    <LinearLayout
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            tools:context=".MainActivity" android:orientation="vertical" android:layout_height="match_parent"
+            android:layout_width="match_parent">
+        <TextView
+                android:text="@{quizMaster.currentQuestion.questionText}"
+                android:layout_width="match_parent"
+                android:layout_height="1356dp" android:id="@+id/txtQuestion" android:layout_weight="1"
+                android:textSize="30sp"
+        />
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:layout_weight="1">
+            <EditText
+                    android:layout_width="277dp"
+                    android:layout_height="match_parent"
+                    android:inputType="textPersonName"
+                    android:hint="@string/answerTextSample"
+                    android:text="@={quizMaster.userAnswer}"
+                    android:ems="10"
+                    android:id="@+id/txtAnswer"/>
+            <Button
+                    android:text="@string/btnOKText"
+                    android:layout_width="29dp"
+                    android:layout_height="wrap_content" android:id="@+id/btnOk" android:layout_weight="1"
+                    android:onClick="@{() -> mainActivity.btnOkClickHandler()}"/>
+            <Button
+                    android:text="@string/btnHintText"
+                    android:layout_width="18dp"
+                    android:layout_height="wrap_content" android:id="@+id/btnHint" android:layout_weight="1"
+                    android:onClick="@{mainActivity::btnHintClickHandler}"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

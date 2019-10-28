@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="quizMaster"
+            type="be.ugent.oomt.quizapp.model.QuizMaster" />
+        <variable
+            name="handler"
+            type="be.ugent.oomt.quizapp.MainActivity" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/question_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{quizMaster.currentQuestion.questionText}"
+                android:textSize="32sp"
+                tools:text="question placeholder" />
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/answer_edit_txt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/answer_hint_text"
+                android:text="@={quizMaster.userAnswer}"/>
+
+            <Button
+                android:id="@+id/ok_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ok_btn_text"
+                android:onClick="@{() -> handler.onOkClick()}"/>
+
+            <Button
+                android:id="@+id/hint_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hint_btn_text"
+                android:onClick="@{handler::onHintClick}"/>
+            <!-- OR: android:onClick="onHintClick" but this can only exist in MainActivity -->
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

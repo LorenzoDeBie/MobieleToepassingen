@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="quizMaster" type="com.example.appquiz.model.QuizMaster" />
+        <variable name="hintActivity" type="com.example.appquiz.HintActivity" />
+        <import type="android.view.View" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".HintActivity">
+        <androidx.constraintlayout.widget.Guideline
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" app:layout_constraintGuide_begin="208dp" android:id="@+id/guideline2"/>
+        <Button
+                android:text="@string/btnHint1Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp" app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.53"
+                android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/divider"
+                android:onClick="onBtnTextClicked"/>
+        <Button
+                android:text="@string/btnHint2Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button2"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+                app:layout_constraintTop_toTopOf="@+id/button"
+                android:onClick="onBtnVisualClicked"/>
+        <View
+                android:id="@+id/divider"
+                android:layout_width="395dp"
+                android:layout_height="3dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp" android:layout_marginBottom="75dp"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/divider"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp" android:layout_marginBottom="16dp">
+
+            <TextView
+                    android:text="@{quizMaster.currentQuestion.textHint}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textView"
+                    android:textSize="30sp"
+                    android:visibility="@{hintActivity.hint_visibility == hintActivity.TEXT_HINT ? View.VISIBLE : View.GONE}"/>
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imageView"
+                    tools:srcCompat="@tools:sample/avatars"
+                    android:visibility="@{hintActivity.hint_visibility == hintActivity.VISUAL_HINT ? View.VISIBLE : View.GONE}"
+                    app:imageRemoteUri="@{quizMaster.currentQuestion.imageUriHint}"/>
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

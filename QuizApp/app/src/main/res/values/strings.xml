@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">test</string>
+    <string name="answer_hint_text">Answer?</string>
+    <string name="ok_btn_text">Ok</string>
+    <string name="hint_btn_text">Hint</string>
+    <string name="hint1_btn_txt">Text Hint</string>
+    <string name="hint_image_btn_text">Image Hint</string>
+    <string name="hint_image">Hint image</string>
+    <string name="invalid_answer">Invalid answer</string>
+    <string name="text_hint_shown">text hint shown</string>
+    <string name="image_hint_shown">image hint shown</string>
+    <string name="no_hints_shown">no hints shown</string>
+    <string name="valid_answer">valid answer</string>
+    <string name="no_hints">No hints have been shown.</string>
+</resources>

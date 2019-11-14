@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="be.ugent.oomt.trafficfeed.view.ui.TrafficViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".view.ui.MainActivity">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textAlignment="center"
+            tools:text="Title placeholder"
+            android:text="@{viewmodel.selectedItem.toString()}"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/main_padding"
+                android:columnCount="2">
+
+                <TextView
+                    android:text="@string/id"
+                    android:textStyle="bold"
+                    android:paddingTop="@dimen/text_topbottom_margin"
+                    android:paddingBottom="@dimen/text_topbottom_margin"
+                    android:minHeight="@dimen/detail_row_height"
+                    android:paddingEnd="@dimen/text_margin"
+                    android:paddingStart="0dp"
+                    android:layout_gravity="end" />
+
+                <TextView
+                    android:id="@+id/itemId"
+                    android:layout_width="0dp"
+                    android:minHeight="@dimen/detail_row_height"
+                    android:paddingTop="@dimen/text_topbottom_margin"
+                    android:paddingBottom="@dimen/text_topbottom_margin"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"
+                    android:layout_columnWeight="1"
+                    tools:text="@string/placeholder"
+                    android:text="@{viewmodel.selectedItem.id}"/>
+
+                <TextView
+                    android:text="@string/source"
+                    android:textStyle="bold"
+                    android:paddingTop="@dimen/text_topbottom_margin"
+                    android:paddingBottom="@dimen/text_topbottom_margin"
+                    android:minHeight="@dimen/detail_row_height"
+                    android:paddingEnd="@dimen/text_margin"
+                    android:paddingStart="0dp"
+                    android:layout_gravity="end" />
+
+                <TextView
+                    android:id="@+id/source"
+                    android:minHeight="@dimen/detail_row_height"
+                    android:paddingBottom="@dimen/text_topbottom_margin"
+                    android:paddingTop="@dimen/text_topbottom_margin"
+                    android:textAllCaps="false"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:textAlignment="textStart"
+                    tools:text="@string/placeholder"
+                    android:text="@{viewmodel.selectedItem.source}"/>
+
+                <TextView
+                    android:text="@string/type"
+                    android:textStyle="bold"
+                    android:paddingTop="@dimen/text_topbottom_margin"
+                    android:paddingBottom="@dimen/text_topbottom_margin"
+                    android:minHeight="@dimen/detail_row_height"
+                    android:paddingEnd="@dimen/text_margin"
+                    android:paddingStart="0dp"
+                    android:layout_gravity="end" />
+
+                <TextView
+                    android:id="@+id/type"
+                    tools:text="@string/placeholder"
+                    android:minHeight="@dimen/detail_row_height"
+                    android:paddingBottom="@dimen/text_topbottom_margin"
+                    android:paddingTop="@dimen/text_topbottom_margin"
+                    android:textAllCaps="false"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:textAlignment="textStart"
+                    android:text="@{viewmodel.selectedItem.type}"/>
+
+                <TextView
+                    android:text="@string/transport"
+                    android:textStyle="bold"
+                    android:paddingTop="@dimen/text_topbottom_margin"
+                    android:paddingBottom="@dimen/text_topbottom_margin"
+                    android:minHeight="@dimen/detail_row_height"
+                    android:paddingEnd="@dimen/text_margin"
+                    android:paddingStart="0dp"
+                    android:layout_gravity="end" />
+
+                <TextView
+                    android:id="@+id/transport"
+                    tools:text="@string/placeholder"
+                    android:minHeight="@dimen/detail_row_height"
+                    android:paddingBottom="@dimen/text_topbottom_margin"
+                    android:paddingTop="@dimen/text_topbottom_margin"
+                    android:textAllCaps="false"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:textAlignment="textStart"
+                    android:text="@{viewmodel.selectedItem.transport}"/>
+
+                <TextView
+                    android:text="@string/alarm_name"
+                    android:textStyle="bold"
+                    android:paddingTop="@dimen/text_topbottom_margin"
+                    android:paddingBottom="@dimen/text_topbottom_margin"
+                    android:minHeight="@dimen/detail_row_height"
+                    android:paddingEnd="@dimen/text_margin"
+                    android:paddingStart="0dp"
+                    android:layout_gravity="end" />
+
+                <TextView
+                    android:id="@+id/alarmName"
+                    tools:text="@string/placeholder"
+                    android:minHeight="@dimen/detail_row_height"
+                    android:paddingBottom="@dimen/text_topbottom_margin"
+                    android:paddingTop="@dimen/text_topbottom_margin"
+                    android:textAllCaps="false"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:textAlignment="textStart"
+                    android:text="@{viewmodel.selectedItem.name}"/>
+
+                <TextView
+                    android:text="@string/message"
+                    android:textStyle="bold"
+                    android:paddingTop="@dimen/text_topbottom_margin"
+                    android:paddingBottom="@dimen/text_topbottom_margin"
+                    android:minHeight="@dimen/detail_row_height"
+                    android:paddingEnd="@dimen/text_margin"
+                    android:paddingStart="0dp"
+                    android:layout_gravity="end" />
+
+                <TextView
+                    android:id="@+id/message"
+                    tools:text="@string/placeholder"
+                    android:minHeight="@dimen/detail_row_height"
+                    android:paddingBottom="@dimen/text_topbottom_margin"
+                    android:paddingTop="@dimen/text_topbottom_margin"
+                    android:textAllCaps="false"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:textAlignment="textStart"
+                    android:text="@{viewmodel.selectedItem.message}"/>
+
+                <TextView
+                    android:text="@string/longitude"
+                    android:textStyle="bold"
+                    android:paddingTop="@dimen/text_topbottom_margin"
+                    android:paddingBottom="@dimen/text_topbottom_margin"
+                    android:minHeight="@dimen/detail_row_height"
+                    android:paddingEnd="@dimen/text_margin"
+                    android:paddingStart="0dp"
+                    android:layout_gravity="end" />
+
+                <TextView
+                    android:id="@+id/longitude"
+                    tools:text="@string/placeholder"
+                    android:minHeight="@dimen/detail_row_height"
+                    android:paddingBottom="@dimen/text_topbottom_margin"
+                    android:paddingTop="@dimen/text_topbottom_margin"
+                    android:textAllCaps="false"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:textAlignment="textStart"
+                    android:text="@{viewmodel.selectedItem.longitude.toString()}"/>
+
+                <TextView
+                    android:text="@string/latitude"
+                    android:textStyle="bold"
+                    android:paddingTop="@dimen/text_topbottom_margin"
+                    android:paddingBottom="@dimen/text_topbottom_margin"
+                    android:minHeight="@dimen/detail_row_height"
+                    android:paddingEnd="@dimen/text_margin"
+                    android:paddingStart="0dp"
+                    android:layout_gravity="end" />
+
+                <TextView
+                    android:id="@+id/latitude"
+                    tools:text="@string/placeholder"
+                    android:minHeight="@dimen/detail_row_height"
+                    android:paddingBottom="@dimen/text_topbottom_margin"
+                    android:paddingTop="@dimen/text_topbottom_margin"
+                    android:textAllCaps="false"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:textAlignment="textStart"
+                    android:text="@{viewmodel.selectedItem.latitude.toString()}"/>
+
+                <TextView
+                    android:text="@string/timestamp"
+                    android:textStyle="bold"
+                    android:paddingTop="@dimen/text_topbottom_margin"
+                    android:paddingBottom="@dimen/text_topbottom_margin"
+                    android:minHeight="@dimen/detail_row_height"
+                    android:paddingEnd="@dimen/text_margin"
+                    android:paddingStart="0dp"
+                    android:layout_gravity="end" />
+
+                <TextView
+                    android:id="@+id/date"
+                    tools:text="@string/placeholder"
+                    android:minHeight="@dimen/detail_row_height"
+                    android:paddingBottom="@dimen/text_topbottom_margin"
+                    android:paddingTop="@dimen/text_topbottom_margin"
+                    android:textAllCaps="false"
+                    android:layout_width="0dp"
+                    android:layout_columnWeight="1"
+                    android:textAlignment="textStart"
+                    android:text="@{viewmodel.selectedItem.date}"/>
+            </GridLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="previous"
+            android:onClick="@{() -> viewmodel.previous()}"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="next"
+            android:onClick="@{() -> viewmodel.next()}"/>
+
+
+    </LinearLayout>
+    </LinearLayout>
+</layout>

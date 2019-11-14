@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".view.ui.MainActivity">
+        <TextView
+                android:text="Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/lblTitle" android:textStyle="bold"
+                android:textAppearance="@android:style/TextAppearance.Large"
+                android:textAlignment="center"/>
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+            <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:padding="15dp">
+                <TextView
+                        android:text="@string/lblIdText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_columnWeight="@dimen/labelColumnWeight" android:textAlignment="textEnd" android:textStyle="bold"
+                        android:layout_margin="@dimen/valuePadding"/>
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/id"
+                        app:layout_columnWeight="@dimen/valueColumnWeight"
+                        android:layout_margin="@dimen/valuePadding"/>
+                <TextView
+                        android:text="@string/lblSourceText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_columnWeight="@dimen/labelColumnWeight" android:textAlignment="textEnd" android:textStyle="bold"
+                        android:layout_margin="@dimen/valuePadding"/>
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/source"
+                        app:layout_columnWeight="@dimen/valueColumnWeight"
+                        android:layout_margin="@dimen/valuePadding"/>
+                <TextView
+                        android:text="@string/lblTypeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_columnWeight="@dimen/labelColumnWeight" android:textAlignment="textEnd" android:textStyle="bold"
+                        android:layout_margin="@dimen/valuePadding"/>
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/type"
+                        app:layout_columnWeight="@dimen/valueColumnWeight"
+                        android:layout_margin="@dimen/valuePadding"/>
+                <TextView
+                        android:text="@string/lblTransportText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_columnWeight="@dimen/labelColumnWeight" android:textAlignment="textEnd" android:textStyle="bold"
+                        android:layout_margin="@dimen/valuePadding"/>
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/transport"
+                        app:layout_columnWeight="@dimen/valueColumnWeight"
+                        android:layout_margin="@dimen/valuePadding"/>
+                <TextView
+                        android:text="@string/lblAlarmNameText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_columnWeight="@dimen/labelColumnWeight" android:textAlignment="textEnd" android:textStyle="bold"
+                        android:layout_margin="@dimen/valuePadding"/>
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/alarmName"
+                        app:layout_columnWeight="@dimen/valueColumnWeight"
+                        android:layout_margin="@dimen/valuePadding"/>
+                <TextView
+                        android:text="@string/lblMessageText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_columnWeight="@dimen/labelColumnWeight" android:textAlignment="textEnd" android:textStyle="bold"
+                        android:layout_margin="@dimen/valuePadding"/>
+                <TextView
+                        android:text="Dit is een langqksdhfkqjsdmlkfqmklsjdfkmlqjsdklfmjqlskmdfjlqmksdjflkmqsjdlkmfj"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/message"
+                        app:layout_columnWeight="@dimen/valueColumnWeight"
+                        android:layout_margin="@dimen/valuePadding"/>
+                <TextView
+                        android:text="@string/lblLongitudeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_columnWeight="@dimen/labelColumnWeight" android:textAlignment="textEnd" android:textStyle="bold"
+                        android:layout_margin="@dimen/valuePadding"/>
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/longitude"
+                        app:layout_columnWeight="@dimen/valueColumnWeight"
+                        android:layout_margin="@dimen/valuePadding"/>
+                <TextView
+                        android:text="@string/lblLatitudeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_columnWeight="@dimen/labelColumnWeight" android:textAlignment="textEnd" android:textStyle="bold"
+                        android:layout_margin="@dimen/valuePadding"/>
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/latitude"
+                        app:layout_columnWeight="@dimen/valueColumnWeight"
+                        android:layout_margin="@dimen/valuePadding"/>
+                <TextView
+                        android:text="@string/lblTimestampText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_columnWeight="@dimen/labelColumnWeight" android:textAlignment="textEnd" android:textStyle="bold"
+                        android:layout_margin="@dimen/valuePadding"/>
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/timestamp"
+                        app:layout_columnWeight="@dimen/valueColumnWeight"
+                        android:layout_margin="@dimen/valuePadding"/>
+            </GridLayout>
+        </ScrollView>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <Button
+                    android:text="@string/btnPreviousText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:id="@+id/btnPrevious" android:layout_weight="1"/>
+            <Button
+                    android:text="@string/btnNextText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:id="@+id/btnNext" android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

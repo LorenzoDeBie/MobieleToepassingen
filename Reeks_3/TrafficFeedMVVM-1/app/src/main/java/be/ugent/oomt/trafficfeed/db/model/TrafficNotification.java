@@ -129,6 +129,10 @@ public class TrafficNotification {
         if (o == null || getClass() != o.getClass()) return false;
 
         TrafficNotification that = (TrafficNotification) o;
+        if(that.getLatitude() == null && getLatitude() != null) return false;
+        if(that.getLatitude() != null && getLatitude() == null) return false;
+        if(that.getLongitude() == null && getLongitude() != null) return false;
+        if(that.getLongitude() != null && getLongitude() == null) return false;
         if (Double.compare(that.getLatitude(), getLatitude()) != 0) return false;
         if (Double.compare(that.getLongitude(), getLongitude()) != 0) return false;
         if (!getId().equals(that.getId())) return false;

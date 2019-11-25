@@ -1,9 +1,17 @@
 package be.ugent.oomt.trafficfeed.db.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.util.UUID;
 
+@Entity(tableName = "trafficnotifications")
 public class TrafficNotification {
 
+    @NonNull
+    @PrimaryKey
     private String id;
     private String name;
     private String type;
@@ -14,6 +22,7 @@ public class TrafficNotification {
     private Double longitude;
     private String date;
 
+    @Ignore
     public TrafficNotification(String name, String type, String source, String transport,
                                Double latitude, Double longitude, String date, String message) {
         this(UUID.randomUUID().toString(), name, type, source, transport, latitude, longitude, date, message);
@@ -32,7 +41,7 @@ public class TrafficNotification {
         this.message = message;
     }
 
-    public TrafficNotification getDummy() {
+    public static TrafficNotification getDummy() {
         return new TrafficNotification("name", "type", "source",
                 "transport", 0.0, 0.0, "date", "message");
     }
@@ -71,6 +80,42 @@ public class TrafficNotification {
 
     public String getDate() {
         return date;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public void setTransport(String transport) {
+        this.transport = transport;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     @Override

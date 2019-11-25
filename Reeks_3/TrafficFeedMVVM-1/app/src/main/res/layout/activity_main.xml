@@ -2,7 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="trafficViewModel" type="be.ugent.oomt.trafficfeed.view.ui.TrafficViewModel" />
 
+    </data>
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -30,7 +33,7 @@
                         app:layout_columnWeight="@dimen/labelColumnWeight" android:textAlignment="textEnd" android:textStyle="bold"
                         android:layout_margin="@dimen/valuePadding"/>
                 <TextView
-                        android:text="TextView"
+                        android:text="@{trafficViewModel.currentNotification.id}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:id="@+id/id"
                         app:layout_columnWeight="@dimen/valueColumnWeight"
@@ -42,7 +45,7 @@
                         app:layout_columnWeight="@dimen/labelColumnWeight" android:textAlignment="textEnd" android:textStyle="bold"
                         android:layout_margin="@dimen/valuePadding"/>
                 <TextView
-                        android:text="TextView"
+                        android:text="@{trafficViewModel.currentNotification.source}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:id="@+id/source"
                         app:layout_columnWeight="@dimen/valueColumnWeight"
@@ -54,7 +57,7 @@
                         app:layout_columnWeight="@dimen/labelColumnWeight" android:textAlignment="textEnd" android:textStyle="bold"
                         android:layout_margin="@dimen/valuePadding"/>
                 <TextView
-                        android:text="TextView"
+                        android:text="@{trafficViewModel.currentNotification.type}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:id="@+id/type"
                         app:layout_columnWeight="@dimen/valueColumnWeight"
@@ -66,7 +69,7 @@
                         app:layout_columnWeight="@dimen/labelColumnWeight" android:textAlignment="textEnd" android:textStyle="bold"
                         android:layout_margin="@dimen/valuePadding"/>
                 <TextView
-                        android:text="TextView"
+                        android:text="@{trafficViewModel.currentNotification.transport}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:id="@+id/transport"
                         app:layout_columnWeight="@dimen/valueColumnWeight"
@@ -78,7 +81,7 @@
                         app:layout_columnWeight="@dimen/labelColumnWeight" android:textAlignment="textEnd" android:textStyle="bold"
                         android:layout_margin="@dimen/valuePadding"/>
                 <TextView
-                        android:text="TextView"
+                        android:text="@{trafficViewModel.currentNotification.name}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:id="@+id/alarmName"
                         app:layout_columnWeight="@dimen/valueColumnWeight"
@@ -90,7 +93,7 @@
                         app:layout_columnWeight="@dimen/labelColumnWeight" android:textAlignment="textEnd" android:textStyle="bold"
                         android:layout_margin="@dimen/valuePadding"/>
                 <TextView
-                        android:text="Dit is een langqksdhfkqjsdmlkfqmklsjdfkmlqjsdklfmjqlskmdfjlqmksdjflkmqsjdlkmfj"
+                        android:text="@{trafficViewModel.currentNotification.message}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:id="@+id/message"
                         app:layout_columnWeight="@dimen/valueColumnWeight"
@@ -102,7 +105,7 @@
                         app:layout_columnWeight="@dimen/labelColumnWeight" android:textAlignment="textEnd" android:textStyle="bold"
                         android:layout_margin="@dimen/valuePadding"/>
                 <TextView
-                        android:text="TextView"
+                        android:text="@{trafficViewModel.currentNotification.longitude.toString()}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:id="@+id/longitude"
                         app:layout_columnWeight="@dimen/valueColumnWeight"
@@ -114,7 +117,7 @@
                         app:layout_columnWeight="@dimen/labelColumnWeight" android:textAlignment="textEnd" android:textStyle="bold"
                         android:layout_margin="@dimen/valuePadding"/>
                 <TextView
-                        android:text="TextView"
+                        android:text="@{trafficViewModel.currentNotification.latitude.toString()}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:id="@+id/latitude"
                         app:layout_columnWeight="@dimen/valueColumnWeight"
@@ -126,7 +129,7 @@
                         app:layout_columnWeight="@dimen/labelColumnWeight" android:textAlignment="textEnd" android:textStyle="bold"
                         android:layout_margin="@dimen/valuePadding"/>
                 <TextView
-                        android:text="TextView"
+                        android:text="@{trafficViewModel.currentNotification.date}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:id="@+id/timestamp"
                         app:layout_columnWeight="@dimen/valueColumnWeight"
@@ -140,11 +143,13 @@
             <Button
                     android:text="@string/btnPreviousText"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content" android:id="@+id/btnPrevious" android:layout_weight="1"/>
+                    android:layout_height="wrap_content" android:id="@+id/btnPrevious" android:layout_weight="1"
+                    android:onClick="@{() -> trafficViewModel.previousNotification()}"/>
             <Button
                     android:text="@string/btnNextText"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content" android:id="@+id/btnNext" android:layout_weight="1"/>
+                    android:layout_height="wrap_content" android:id="@+id/btnNext" android:layout_weight="1"
+                    android:onClick="@{() -> trafficViewModel.nextNotification()}"/>
         </LinearLayout>
     </LinearLayout>
 </layout>

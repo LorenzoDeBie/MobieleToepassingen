@@ -4,17 +4,20 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import be.ugent.oomt.trafficfeed.R;
 import be.ugent.oomt.trafficfeed.db.TrafficRepository;
 import be.ugent.oomt.trafficfeed.db.model.TrafficNotification;
 
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Random;
 
 public class TrafficViewModel extends ViewModel {
     private MutableLiveData<TrafficNotification> currentNotification = new MutableLiveData<>();
     private TrafficRepository repository;
     private List<TrafficNotification> notifications;
     private ListIterator<TrafficNotification> iterator;
+    private static Random random = new Random();
 
     public TrafficViewModel() {
         Log.i(TrafficViewModel.class.getCanonicalName(), "TrafficViewModel: Constructor");
@@ -58,5 +61,12 @@ public class TrafficViewModel extends ViewModel {
             currentNotification.setValue(temp);
         }
         Log.i(TrafficViewModel.class.getCanonicalName(), "previousNotification: function executed current = " + currentNotification.getValue().getId());
+    }
+
+    public void selectRandomNotification() {
+        int i = random.nextInt(notifications.size());
+        currentNotification.setValue(notifications.get(i));
+        iterator = notifications.listIterator();
+        while(iterator.next() != currentNotification.getValue()) {}
     }
 }

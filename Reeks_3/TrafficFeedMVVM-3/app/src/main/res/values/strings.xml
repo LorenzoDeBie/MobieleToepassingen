@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Traffic Notifications</string>
+    <string name="btnPreviousText">Previous</string>
+    <string name="btnNextText">Next</string>
+    <string name="lblIdText">Id:</string>
+    <string name="lblSourceText">Source:</string>
+    <string name="lblTypeText">Type:</string>
+    <string name="lblTransportText">Transport:</string>
+    <string name="lblAlarmNameText">Alarm name:</string>
+    <string name="lblMessageText">Message:</string>
+    <string name="lblLongitudeText">Longitude:</string>
+    <string name="lblLatitudeText">Latitude</string>
+    <string name="lblTimestampText">Timestamp</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

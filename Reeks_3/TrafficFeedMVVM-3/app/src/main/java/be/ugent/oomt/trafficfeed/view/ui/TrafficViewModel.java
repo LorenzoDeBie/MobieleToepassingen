@@ -73,4 +73,8 @@ public class TrafficViewModel extends ViewModel {
     public List<TrafficNotification> getNotifications() {
         return notifications;
     }
+
+    public void setCurrentNotification(TrafficNotification notification) {
+        currentNotification.setValue(notification);
+    }
 }

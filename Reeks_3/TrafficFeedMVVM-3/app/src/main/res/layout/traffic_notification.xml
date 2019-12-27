@@ -2,12 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable name="notification" type="be.ugent.oomt.trafficfeed.db.model.TrafficNotification"/>
+        <variable name="clicklistener" type="be.ugent.oomt.trafficfeed.TrafficListAdapter.OnNotificationClickListener"/>
     </data>
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:onClick="@{e -> clicklistener.onNotificationClick(notification)}">
         <TextView
                 android:text="@{notification.toString()}"
                 android:layout_width="match_parent"

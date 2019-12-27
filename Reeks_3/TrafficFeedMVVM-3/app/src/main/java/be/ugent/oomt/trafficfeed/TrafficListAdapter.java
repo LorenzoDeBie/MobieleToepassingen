@@ -13,14 +13,16 @@ import java.util.List;
 
 public class TrafficListAdapter extends RecyclerView.Adapter<TrafficListAdapter.TrafficViewHolder> {
 
-    List<TrafficNotification> dataSet;
+    private List<TrafficNotification> dataSet;
+    private final OnNotificationClickListener notificationClickListener;
 
-    public TrafficListAdapter(List<TrafficNotification> dataSet) {
+    public TrafficListAdapter(List<TrafficNotification> dataSet, OnNotificationClickListener notificationClickListener) {
         this.dataSet = dataSet;
+        this.notificationClickListener = notificationClickListener;
     }
 
     //holds view
-    public static class TrafficViewHolder extends RecyclerView.ViewHolder {
+    public class TrafficViewHolder extends RecyclerView.ViewHolder {
         public TrafficNotificationBinding notificationBinding;
         public TrafficViewHolder(@NonNull TrafficNotificationBinding binding) {
             super(binding.getRoot());
@@ -29,8 +31,7 @@ public class TrafficListAdapter extends RecyclerView.Adapter<TrafficListAdapter.
 
         public void onBind(TrafficNotification notification) {
             notificationBinding.setNotification(notification);
-            notificationBinding.executePendingBindings();
-
+            notificationBinding.setClicklistener(notificationClickListener);
         }
     }
 
@@ -51,5 +52,9 @@ public class TrafficListAdapter extends RecyclerView.Adapter<TrafficListAdapter.
     @Override
     public int getItemCount() {
         return dataSet.size();
+    }
+
+    public interface OnNotificationClickListener {
+        void onNotificationClick(TrafficNotification n);
     }
 }

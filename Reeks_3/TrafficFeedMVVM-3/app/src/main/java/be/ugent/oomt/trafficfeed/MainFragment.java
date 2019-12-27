@@ -16,16 +16,18 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import be.ugent.oomt.trafficfeed.databinding.FragmentMainBinding;
+import be.ugent.oomt.trafficfeed.db.model.TrafficNotification;
 import be.ugent.oomt.trafficfeed.view.ui.TrafficViewModel;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements TrafficListAdapter.OnNotificationClickListener {
     private static final String TAG = "MainFragment";
 
     private RecyclerView notificationsRecyclerView;
+    //private final TrafficViewModel vm = ViewModelProviders.of(getActivity()).get(TrafficViewModel.class);
 
     public MainFragment() {
         // Required empty public constructor
@@ -41,19 +43,21 @@ public class MainFragment extends Fragment {
         binding.setFragment(this);
         notificationsRecyclerView = binding.notificationsRecyclerView;
         notificationsRecyclerView.setHasFixedSize(true);
-        TrafficViewModel vm = ViewModelProviders.of(getActivity()).get(TrafficViewModel.class);
-        notificationsRecyclerView.setAdapter(new TrafficListAdapter(vm.getNotifications()));
+        final TrafficViewModel vm = ViewModelProviders.of(getActivity()).get(TrafficViewModel.class);
+        notificationsRecyclerView.setAdapter(new TrafficListAdapter(vm.getNotifications(), this));
         notificationsRecyclerView.addItemDecoration(new DividerItemDecoration(notificationsRecyclerView.getContext(),
                 ((LinearLayoutManager)notificationsRecyclerView.getLayoutManager()).getOrientation()));
         return binding.getRoot();
     }
 
-    public void click(View v) {
-        Log.i(TAG, "Click: random button");
+    //click handler
+    @Override
+    public void onNotificationClick(TrafficNotification n) {
+        Log.i(TAG, "onNotificationClick: Notification clicked");
         TrafficViewModel vm = ViewModelProviders.of(getActivity()).get(TrafficViewModel.class);
-        vm.selectRandomNotification();
+        vm.setCurrentNotification(n);
         if(getActivity().findViewById(R.id.navhostfragment) != null) {
-            Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_detailFragment);
+            Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_detailFragment);
         }
         else {
             Toast.makeText(getContext(), "In landscape", Toast.LENGTH_SHORT).show();

@@ -29,8 +29,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             this.navController = Navigation.findNavController(this, R.id.navhostfragment);
             NavigationUI.setupActionBarWithNavController(this, this.navController);
-        } catch (IllegalArgumentException e) {
-        }
+        } catch (IllegalArgumentException ignored) { }
     }
 
     @Override

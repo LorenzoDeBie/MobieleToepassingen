@@ -69,4 +69,8 @@ public class TrafficViewModel extends ViewModel {
         iterator = notifications.listIterator();
         while(iterator.next() != currentNotification.getValue()) {}
     }
+
+    public List<TrafficNotification> getNotifications() {
+        return notifications;
+    }
 }

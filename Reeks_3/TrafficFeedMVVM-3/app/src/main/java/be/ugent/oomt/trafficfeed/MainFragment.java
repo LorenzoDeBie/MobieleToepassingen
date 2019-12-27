@@ -12,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import be.ugent.oomt.trafficfeed.databinding.FragmentMainBinding;
 import be.ugent.oomt.trafficfeed.view.ui.TrafficViewModel;
 
@@ -20,8 +23,9 @@ import be.ugent.oomt.trafficfeed.view.ui.TrafficViewModel;
  * A simple {@link Fragment} subclass.
  */
 public class MainFragment extends Fragment {
-
     private static final String TAG = "MainFragment";
+
+    private RecyclerView notificationsRecyclerView;
 
     public MainFragment() {
         // Required empty public constructor
@@ -35,6 +39,12 @@ public class MainFragment extends Fragment {
 
         FragmentMainBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
         binding.setFragment(this);
+        notificationsRecyclerView = binding.notificationsRecyclerView;
+        notificationsRecyclerView.setHasFixedSize(true);
+        TrafficViewModel vm = ViewModelProviders.of(getActivity()).get(TrafficViewModel.class);
+        notificationsRecyclerView.setAdapter(new TrafficListAdapter(vm.getNotifications()));
+        notificationsRecyclerView.addItemDecoration(new DividerItemDecoration(notificationsRecyclerView.getContext(),
+                ((LinearLayoutManager)notificationsRecyclerView.getLayoutManager()).getOrientation()));
         return binding.getRoot();
     }
 

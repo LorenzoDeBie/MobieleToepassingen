@@ -10,14 +10,19 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import be.ugent.oomt.trafficfeed.databinding.FragmentMainBinding;
+import be.ugent.oomt.trafficfeed.db.TrafficRepository;
 import be.ugent.oomt.trafficfeed.db.model.TrafficNotification;
 import be.ugent.oomt.trafficfeed.view.ui.TrafficViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -43,10 +48,20 @@ public class MainFragment extends Fragment implements TrafficListAdapter.OnNotif
         binding.setFragment(this);
         notificationsRecyclerView = binding.notificationsRecyclerView;
         notificationsRecyclerView.setHasFixedSize(true);
-        final TrafficViewModel vm = ViewModelProviders.of(getActivity()).get(TrafficViewModel.class);
-        notificationsRecyclerView.setAdapter(new TrafficListAdapter(vm.getNotifications(), this));
+
+        final TrafficRepository repo = TrafficRepository.getInstance(getActivity().getApplication());
+        final TrafficListAdapter trafficListAdapter = new TrafficListAdapter(repo.getAllNotifications().getValue(), this);
+        notificationsRecyclerView.setAdapter(trafficListAdapter);
         notificationsRecyclerView.addItemDecoration(new DividerItemDecoration(notificationsRecyclerView.getContext(),
                 ((LinearLayoutManager)notificationsRecyclerView.getLayoutManager()).getOrientation()));
+
+        TrafficViewModel vm = ViewModelProviders.of(getActivity()).get(TrafficViewModel.class);
+        vm.getNotifications().observe(getActivity(), new Observer<List<TrafficNotification>>() {
+            @Override
+            public void onChanged(List<TrafficNotification> trafficNotifications) {
+                trafficListAdapter.setNotifications(trafficNotifications);
+            }
+        });
         return binding.getRoot();
     }
 

@@ -3,14 +3,23 @@ package be.ugent.oomt.trafficfeed.db;
 
 import android.content.Context;
 import android.util.Log;
+import androidx.lifecycle.LiveData;
 import be.ugent.oomt.trafficfeed.db.TrafficDatabase;
 import be.ugent.oomt.trafficfeed.db.model.TrafficNotification;
 import be.ugent.oomt.trafficfeed.util.JsonUtils;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
 
 public class TrafficRepository {
     private static TrafficRepository instance;
@@ -18,27 +27,15 @@ public class TrafficRepository {
     private List<TrafficNotification> allNotifications;
 
     private static final String TAG = TrafficRepository.class.getCanonicalName();
+    private final RequestQueue queue;
+    public static final String URL = "http://users.ugent.be/~ejodconi/verkeersmeldingen.json";
+    private Date lastRefresh;
 
     private TrafficRepository(final Context ctx) {
         TrafficDatabase db = TrafficDatabase.getDatabase(ctx);
         dao = db.trafficDAO();
-        Log.d(TAG, "before deleteAll");
-        dao.deleteAll();
-        Log.d(TAG, "TrafficRepository: after deleteall");
-        try {
-            JSONObject json = JsonUtils.loadJSONFromAsset(ctx, "verkeersmeldingen.json");
-            List<TrafficNotification> notifications = JsonUtils.parseJSON(json);
-            Log.d(TAG, "TrafficRepository: before insertAll");
-            dao.insertAll(notifications);
-            Log.d(TAG, "TrafficRepository: after insertAll");
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        catch (JSONException e) {
-            e.printStackTrace();
-        }
-        allNotifications = dao.getAll();
+        updateNotifications();
+        queue = Volley.newRequestQueue(ctx);
     }
 
     //singleton
@@ -49,8 +46,33 @@ public class TrafficRepository {
         return instance;
     }
 
-    public List<TrafficNotification> getAllNotifications() {
-        return allNotifications;
+    public LiveData<List<TrafficNotification>> getAllNotifications() {
+        long diff = new Date().getTime() - lastRefresh.getTime();
+        // only update if longer than 1 minute passed
+        if(diff / (1000*60) > 0)
+            updateNotifications();
+        return dao.getAll();
+    }
+
+    private void updateNotifications() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    allNotifications = JsonUtils.parseJSON(response);
+                    dao.deleteAll();
+                    dao.insertAll(allNotifications);
+                    lastRefresh = new Date();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
     }
 
 }

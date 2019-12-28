@@ -13,22 +13,16 @@ import java.util.ListIterator;
 import java.util.Random;
 
 public class TrafficViewModel extends ViewModel {
-    private MutableLiveData<TrafficNotification> currentNotification = new MutableLiveData<>();
-    private TrafficRepository repository;
-    private List<TrafficNotification> notifications;
-    private ListIterator<TrafficNotification> iterator;
-    private static Random random = new Random();
+    private int currentIndex;
+    private LiveData<List<TrafficNotification>> notifications;
+    private MutableLiveData<TrafficNotification> currentNotification;
 
     public TrafficViewModel() {
         Log.i(TrafficViewModel.class.getCanonicalName(), "TrafficViewModel: Constructor");
     }
 
     public void setRepository(TrafficRepository repository) {
-        this.repository = repository;
-        notifications = repository.getAllNotifications();
-        iterator = notifications.listIterator();
-        if(currentNotification.getValue() == null && iterator.hasNext())
-            currentNotification.setValue(iterator.next());
+        this.notifications = repository.getAllNotifications();
     }
 
     public LiveData<TrafficNotification> getCurrentNotification() {
@@ -45,32 +39,23 @@ public class TrafficViewModel extends ViewModel {
     * */
     public void nextNotification() {
         Log.i(TrafficViewModel.class.getCanonicalName(), "nextNotification: current = " + currentNotification.getValue().getId());
-        if(iterator.hasNext()) {
-            TrafficNotification temp = iterator.next();
-            if(temp.equals(currentNotification.getValue()) && iterator.hasNext()) temp = iterator.next();
-            currentNotification.setValue(temp);
+        if(currentIndex < notifications.getValue().size()) {
+            currentIndex++;
+            this.currentNotification.setValue(notifications.getValue().get(currentIndex));
         }
         Log.i(TrafficViewModel.class.getCanonicalName(), "nextNotification: function executed current = " + currentNotification.getValue().getId());
     }
 
     public void previousNotification() {
         Log.i(TrafficViewModel.class.getCanonicalName(), "nextNotification: current = " + currentNotification.getValue().getId());
-        if(iterator.hasPrevious()) {
-            TrafficNotification temp = iterator.previous();
-            if(temp.equals(currentNotification.getValue()) && iterator.hasPrevious()) temp = iterator.previous();
-            currentNotification.setValue(temp);
+        if(currentIndex > 0) {
+            currentIndex--;
+            this.currentNotification.setValue(notifications.getValue().get(currentIndex));
         }
         Log.i(TrafficViewModel.class.getCanonicalName(), "previousNotification: function executed current = " + currentNotification.getValue().getId());
     }
 
-    public void selectRandomNotification() {
-        int i = random.nextInt(notifications.size());
-        currentNotification.setValue(notifications.get(i));
-        iterator = notifications.listIterator();
-        while(iterator.next() != currentNotification.getValue()) {}
-    }
-
-    public List<TrafficNotification> getNotifications() {
+    public LiveData<List<TrafficNotification>> getNotifications() {
         return notifications;
     }
 

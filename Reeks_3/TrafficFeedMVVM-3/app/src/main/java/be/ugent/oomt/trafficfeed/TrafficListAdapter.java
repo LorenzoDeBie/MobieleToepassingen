@@ -54,6 +54,11 @@ public class TrafficListAdapter extends RecyclerView.Adapter<TrafficListAdapter.
         return dataSet.size();
     }
 
+    public void setNotifications(List<TrafficNotification> trafficNotifications) {
+        this.dataSet = trafficNotifications;
+        notifyDataSetChanged();
+    }
+
     public interface OnNotificationClickListener {
         void onNotificationClick(TrafficNotification n);
     }

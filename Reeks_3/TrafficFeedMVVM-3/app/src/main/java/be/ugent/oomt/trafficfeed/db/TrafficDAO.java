@@ -1,5 +1,6 @@
 package be.ugent.oomt.trafficfeed.db;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -19,5 +20,5 @@ public interface TrafficDAO {
 
     //TODO: maybe return livedata?
     @Query("SELECT * FROM trafficnotifications")
-    List<TrafficNotification> getAll();
+    LiveData<List<TrafficNotification>> getAll();
 }

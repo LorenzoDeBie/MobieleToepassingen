@@ -1,5 +1,6 @@
 package be.ugent.oomt.trafficfeed.db;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import androidx.lifecycle.LiveData;
 import android.database.sqlite.SQLiteConstraintException;

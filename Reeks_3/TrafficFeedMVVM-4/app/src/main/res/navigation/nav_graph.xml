@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/mapFragment">
 
     <fragment
         android:id="@+id/mainFragment"
@@ -23,4 +23,8 @@
         android:name="be.ugent.oomt.trafficfeed.view.ui.TrafficItemFragment"
         android:label="@string/item_title"
         tools:layout="@layout/fragment_traffic_item" />
+    <fragment android:id="@+id/mapFragment" android:name="be.ugent.oomt.trafficfeed.view.ui.MapFragment"
+              android:label="fragment_map" tools:layout="@layout/fragment_map">
+        <action android:id="@+id/action_mapFragment_to_trafficItemFragment" app:destination="@id/trafficItemFragment"/>
+    </fragment>
 </navigation>

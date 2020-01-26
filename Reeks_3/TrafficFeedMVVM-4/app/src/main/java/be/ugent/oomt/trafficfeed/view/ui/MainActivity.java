@@ -6,11 +6,13 @@ import android.os.Bundle;
 import java.util.HashSet;
 import java.util.Set;
 
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import be.ugent.oomt.trafficfeed.R;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
         this.navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
         appBarConfiguration = new AppBarConfiguration.Builder(this.navController.getGraph())
+                .setDrawerLayout((DrawerLayout) findViewById(R.id.drawer_layout))
                 .build();
+        NavigationUI.setupWithNavController((NavigationView) findViewById(R.id.nav_view), navController);
         NavigationUI.setupActionBarWithNavController(this, this.navController, this.appBarConfiguration);
     }
 

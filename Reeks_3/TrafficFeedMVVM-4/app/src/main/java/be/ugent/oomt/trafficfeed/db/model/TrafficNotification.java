@@ -84,6 +84,10 @@ public class TrafficNotification {
         return getSource() + " - " + getType();
     }
 
+    public boolean hasValidPosition() {
+        return latitude != null && longitude != null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

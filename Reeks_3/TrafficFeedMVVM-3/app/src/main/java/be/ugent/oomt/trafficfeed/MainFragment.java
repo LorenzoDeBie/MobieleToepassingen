@@ -13,26 +13,25 @@ import android.view.ViewGroup;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import be.ugent.oomt.trafficfeed.databinding.FragmentMainBinding;
-import be.ugent.oomt.trafficfeed.db.TrafficRepository;
 import be.ugent.oomt.trafficfeed.db.model.TrafficNotification;
 import be.ugent.oomt.trafficfeed.view.ui.TrafficViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends Fragment implements TrafficListAdapter.OnNotificationClickListener {
+public class MainFragment extends Fragment implements TrafficNotificationAdapter.OnNotificationClickListener {
+
     private static final String TAG = "MainFragment";
 
-    private RecyclerView notificationsRecyclerView;
-    //private final TrafficViewModel vm = ViewModelProviders.of(getActivity()).get(TrafficViewModel.class);
+    private RecyclerView recyclerView;
+    private TrafficNotificationAdapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     public MainFragment() {
         // Required empty public constructor
@@ -46,37 +45,42 @@ public class MainFragment extends Fragment implements TrafficListAdapter.OnNotif
 
         FragmentMainBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
         binding.setFragment(this);
-        notificationsRecyclerView = binding.notificationsRecyclerView;
-        notificationsRecyclerView.setHasFixedSize(true);
 
-        final TrafficRepository repo = TrafficRepository.getInstance(getActivity().getApplication());
-        final TrafficListAdapter trafficListAdapter = new TrafficListAdapter(repo.getAllNotifications().getValue(), this);
-        notificationsRecyclerView.setAdapter(trafficListAdapter);
-        notificationsRecyclerView.addItemDecoration(new DividerItemDecoration(notificationsRecyclerView.getContext(),
-                ((LinearLayoutManager)notificationsRecyclerView.getLayoutManager()).getOrientation()));
-
+        recyclerView = binding.mainRecyclerView;
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
         TrafficViewModel vm = ViewModelProviders.of(getActivity()).get(TrafficViewModel.class);
-        vm.getNotifications().observe(getActivity(), new Observer<List<TrafficNotification>>() {
+        mAdapter = new TrafficNotificationAdapter(vm.getNotifications().getValue(), this);
+        vm.getNotifications().observe(this, new Observer<List<TrafficNotification>>() {
             @Override
-            public void onChanged(List<TrafficNotification> trafficNotifications) {
-                trafficListAdapter.setNotifications(trafficNotifications);
+            public void onChanged(List<TrafficNotification> notifications) {
+                mAdapter.setNotifications(notifications);
             }
         });
+        recyclerView.setAdapter(mAdapter);
         return binding.getRoot();
     }
 
-    //click handler
-    @Override
-    public void onNotificationClick(TrafficNotification n) {
-        Log.i(TAG, "onNotificationClick: Notification clicked");
+    public void click(View v) {
+        Log.i(TAG, "Click: random button");
         TrafficViewModel vm = ViewModelProviders.of(getActivity()).get(TrafficViewModel.class);
-        vm.setCurrentNotification(n);
+        vm.selectRandomNotification();
         if(getActivity().findViewById(R.id.navhostfragment) != null) {
-            Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_detailFragment);
+            Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_detailFragment);
         }
         else {
             Toast.makeText(getContext(), "In landscape", Toast.LENGTH_SHORT).show();
         }
     }
 
+    @Override
+    public void onNotificationClick(TrafficNotification notification) {
+        Log.i(TAG, "onNotificationClick: selected notification");
+        TrafficViewModel vm = ViewModelProviders.of(getActivity()).get(TrafficViewModel.class);
+        vm.selectCurrentNotification(notification);
+        if(getActivity().findViewById(R.id.navhostfragment) != null) {
+            Navigation.findNavController(getView()).navigate(R.id.action_mainFragment_to_detailFragment);
+        }
+    }
 }

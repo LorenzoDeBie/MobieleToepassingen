@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-        <variable name="notification" type="be.ugent.oomt.trafficfeed.db.model.TrafficNotification"/>
-        <variable name="clicklistener" type="be.ugent.oomt.trafficfeed.TrafficListAdapter.OnNotificationClickListener"/>
+        <variable name="trafficNot" type="be.ugent.oomt.trafficfeed.db.model.TrafficNotification"/>
+        <variable name="listener" type="be.ugent.oomt.trafficfeed.TrafficNotificationAdapter.OnNotificationClickListener"/>
     </data>
     <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:onClick="@{e -> clicklistener.onNotificationClick(notification)}">
-        <TextView
-                android:text="@{notification.toString()}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/txtTitle"/>
-        <TextView
-                android:text="@{notification.date}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/txtTimestamp"/>
-    </LinearLayout>
+            android:padding="25dp"
+            android:onClick="@{() -> listener.onNotificationClick(trafficNot)}">
 
+        <TextView
+                android:text="@{trafficNot.toString()}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/traffic_notification_title"/>
+        <TextView
+                android:text="@{trafficNot.date}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/traffic_notification_date"/>
+    </LinearLayout>
 </layout>

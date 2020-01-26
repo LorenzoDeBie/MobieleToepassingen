@@ -1,9 +1,11 @@
 package be.ugent.oomt.trafficfeed.db;
 
 
+import android.app.Notification;
 import android.content.Context;
 import android.util.Log;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import be.ugent.oomt.trafficfeed.db.TrafficDatabase;
 import be.ugent.oomt.trafficfeed.db.model.TrafficNotification;
 import be.ugent.oomt.trafficfeed.util.JsonUtils;
@@ -19,23 +21,23 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.Timer;
 
 public class TrafficRepository {
     private static TrafficRepository instance;
     private TrafficDAO dao;
-    private List<TrafficNotification> allNotifications;
+    private Date lastRequest;
+    private RequestQueue queue;
+    private MutableLiveData<List<TrafficNotification>> notifications = new MutableLiveData<>();
 
     private static final String TAG = TrafficRepository.class.getCanonicalName();
-    private final RequestQueue queue;
-    public static final String URL = "http://users.ugent.be/~ejodconi/verkeersmeldingen.json";
-    private Date lastRefresh;
 
     private TrafficRepository(final Context ctx) {
         TrafficDatabase db = TrafficDatabase.getDatabase(ctx);
         dao = db.trafficDAO();
-        updateNotifications();
+        Log.d(TAG, "before deleteAll");
+        dao.deleteAll();
         queue = Volley.newRequestQueue(ctx);
+        getAllNotificationsFromWeb();
     }
 
     //singleton
@@ -47,32 +49,36 @@ public class TrafficRepository {
     }
 
     public LiveData<List<TrafficNotification>> getAllNotifications() {
-        long diff = new Date().getTime() - lastRefresh.getTime();
-        // only update if longer than 1 minute passed
-        if(diff / (1000*60) > 0)
-            updateNotifications();
-        return dao.getAll();
+        if(new Date().getTime() - lastRequest.getTime() < 6000) {
+            getAllNotificationsFromWeb();
+        }
+        return notifications;
     }
 
-    private void updateNotifications() {
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
+    private void getAllNotificationsFromWeb() {
+        String url = "https://users.ugent.be/~ejodconi/verkeersmeldingen.json";
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                Log.i(TAG, "onResponse: Loaded traffic notification from web");
                 try {
-                    allNotifications = JsonUtils.parseJSON(response);
                     dao.deleteAll();
-                    dao.insertAll(allNotifications);
-                    lastRefresh = new Date();
+                    notifications.setValue(JsonUtils.parseJSON(response));
+                    dao.insertAll(notifications.getValue());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
+
             @Override
             public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
+                Log.e(TAG, "onErrorResponse: Failed to load notifications from web", error);
             }
         });
+        queue.add(jsonObjectRequest);
+        lastRequest = new Date();
     }
 
 }

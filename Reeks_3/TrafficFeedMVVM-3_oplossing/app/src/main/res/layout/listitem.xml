@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="notification"
+            type="be.ugent.oomt.trafficfeed.db.model.TrafficNotification" />
+        <variable
+            name="listener"
+            type="be.ugent.oomt.trafficfeed.TrafficListAdapter.OnNotificationClickListener" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="@{e -> listener.click(notification)}">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{notification.toString()}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{notification.date}"/>
+
+    </LinearLayout>
+</layout>
